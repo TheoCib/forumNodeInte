@@ -146,8 +146,15 @@ app.get('/detail/:questionId', (req,res) => {
         .then((question) => {
             res.render("detail", { question, user: req.user })
         })
+});
 
-
+app.get('/api/delete/:questionId', (req,res) => {
+    const questionId = req.params.questionId
+   Question
+       .destroy({where:{id: questionId}})
+       .then(() => {
+           res.render("delete")
+       })
 });
 
 //Inscription, mise en BDD d'un user

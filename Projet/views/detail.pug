@@ -5,13 +5,19 @@ html
         p De #{question.user.firstname}
     body
         p #{question.content}
-        p Commentaires :
-            for comment in question.comments
-                article
-                    p De #{comment.user.firstname}
-                    p #{comment.content}
-        form(method="POST")
-            textarea(name="comment", placeholder="Commentaire", rows=7, cols=50)
-            br
-            button(type="submit") Commenter
+        a(href="/api/delete/" + question.id) X
+        if user
+            p Commentaires :
+                for comment in question.comments
+                    article
+                        p De #{comment.user.firstname}
+                        p #{comment.content}
+
+                form(method="POST")
+                    textarea(name="comment", placeholder="Commentaire", rows=7, cols=50)
+                    br
+                    button(type="submit") Commenter
+        else
+            p Veuilliez vous connecter pour poster et lire les commentaires
+
         a(href="/") Retour Menu

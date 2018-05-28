@@ -10,4 +10,7 @@ html
 
         a(href="/login") Se connecter
         a(href="/signup") S'inscrire
-        a(href="/addquestion") Poser une question
+        if user
+            a(href="/addquestion") Poser une question
+        else
+            p Veuillez vous connecter pour poster une question.
