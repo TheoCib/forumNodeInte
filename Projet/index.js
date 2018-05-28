@@ -71,6 +71,11 @@ app.post('/login', passport.authenticate('local', {
     failureRedirect: '/login'
 }));
 
+//Se deconnecter
+app.get('/api/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
 
 //Initialisation des BDD--------------------------
 const db = new Sequelize('forum', 'root', '', {
@@ -86,15 +91,33 @@ const User = db.define('user', {
     role: {type: Sequelize.ENUM("admin","user")}
 });
 
+const Question = db.define('question', {
+    title: {type : Sequelize.STRING},
+    content: {type : Sequelize.STRING}
+});
+
+const Comment = db.define('comment', {
+    content: {type: Sequelize.STRING}
+});
+
 function sync() {
     User.sync();
-
+    Question.sync();
+    Comment.sync();
 }
 
-sync()
+/*User.hasMany(Question);
+User.hasMany(Comment);*/
+Question.hasMany(Comment);
+Comment.belongsTo(Question);
+sync();
+
 
 app.get('/', (req,res) => {
-    res.render("home")
+    Question
+        .findAll()
+        .then(questions => res.render("home", {questions}))
+
 });
 
 app.get('/signup', (req,res) => {
@@ -103,6 +126,21 @@ app.get('/signup', (req,res) => {
 
 app.get('/login', (req,res) => {
     res.render("login")
+});
+
+app.get('/addquestion', (req,res) => {
+    res.render("addquestion")
+});
+
+app.get('/detail/:questionId', (req,res) => {
+    const questionId = req.params.questionId;
+    Question
+        .findOne({include: [Comment], where:{
+            id: questionId
+            }})
+        .then((question) => {
+            res.render("detail", { question, user: req.user })
+        })
 });
 
 //Inscription, mise en BDD d'un user
@@ -137,4 +175,30 @@ app.post('/signup', (req,res) => {
         })
 });
 
+app.post('/addquestion', (req,res) => {
+   Question
+       .sync()
+       .then(() => {
+           Question.create({
+               title: req.body.title,
+               content: req.body.content
+           })
+       })
+       .then(() => {
+           res.redirect('/')
+       })
+
+});
+app.post('/detail/:questionId', (req,res) =>{
+    Comment
+        .sync()
+        .then(() => {
+            Comment.create({
+                    content: req.body.comment,
+                    questionId: req.params.questionId
+                }
+            )
+        })
+        .then(() => res.redirect('/detail/' + req.params.questionId))
+});
 app.listen(3000);

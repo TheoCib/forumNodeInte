@@ -3,5 +3,10 @@ html
         title Home
         h1 Bienvenue
     body
+        for question in questions
+            article
+                a(href="/detail/" + question.id) #{question.title}
+
         a(href="/login") Se connecter
         a(href="/signup") S'inscrire
+        a(href="/addquestion") Poser une question
