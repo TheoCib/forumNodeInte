@@ -82,7 +82,8 @@ const User = db.define('user', {
     firstname: { type: Sequelize.STRING },
     lastname: { type: Sequelize.STRING },
     email: { type: Sequelize.STRING },
-    password: { type: Sequelize.STRING }
+    password: { type: Sequelize.STRING },
+    role: {type: Sequelize.ENUM("admin","user")}
 });
 
 function sync() {
@@ -109,13 +110,27 @@ app.post('/signup', (req,res) => {
     User
         .sync()
         .then(() => {
-            User.create({
+            return User.count()
+        })
+        .then((count) => {
+            if(count == 0){
+                User.create({
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     email: req.body.email,
-                    password: req.body.password
-                }
-            )
+                    password: req.body.password,
+                    role: "admin"
+                });
+            }
+            else{
+                User.create({
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    password: req.body.password,
+                    role: "user"
+                });
+            }
         })
         .then(()=>{
             res.redirect('/')
