@@ -6,6 +6,7 @@ html
         for question in questions
             article
                 a(href="/detail/" + question.id) #{question.title}
+                p #{question.user.firstname}
 
         a(href="/login") Se connecter
         a(href="/signup") S'inscrire

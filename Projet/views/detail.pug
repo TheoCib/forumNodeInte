@@ -2,11 +2,13 @@ html
     header
         title #{question.title}
         h1 #{question.title}
+        p De #{question.user.firstname}
     body
         p #{question.content}
         p Commentaires :
             for comment in question.comments
                 article
+                    p De #{comment.user.firstname}
                     p #{comment.content}
         form(method="POST")
             textarea(name="comment", placeholder="Commentaire", rows=7, cols=50)

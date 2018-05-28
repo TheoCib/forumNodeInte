@@ -106,8 +106,12 @@ function sync() {
     Comment.sync();
 }
 
-/*User.hasMany(Question);
-User.hasMany(Comment);*/
+User.hasMany(Question);
+Question.belongsTo(User);
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
+
 Question.hasMany(Comment);
 Comment.belongsTo(Question);
 sync();
@@ -115,8 +119,8 @@ sync();
 
 app.get('/', (req,res) => {
     Question
-        .findAll()
-        .then(questions => res.render("home", {questions}))
+        .findAll({include: [User]})
+        .then(questions => res.render("home", {questions, user: req.user}))
 
 });
 
@@ -129,18 +133,21 @@ app.get('/login', (req,res) => {
 });
 
 app.get('/addquestion', (req,res) => {
-    res.render("addquestion")
+    res.render("addquestion", {user: req.user})
 });
 
 app.get('/detail/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question
-        .findOne({include: [Comment], where:{
+        .findById(questionId,{include: [User, {model: Comment,include:[User]}]})
+        /*.findOne({include: [Comment, User], where:{
             id: questionId
-            }})
+            }})*/
         .then((question) => {
             res.render("detail", { question, user: req.user })
         })
+
+
 });
 
 //Inscription, mise en BDD d'un user
@@ -181,7 +188,8 @@ app.post('/addquestion', (req,res) => {
        .then(() => {
            Question.create({
                title: req.body.title,
-               content: req.body.content
+               content: req.body.content,
+               userId: req.user.id
            })
        })
        .then(() => {
@@ -195,7 +203,8 @@ app.post('/detail/:questionId', (req,res) =>{
         .then(() => {
             Comment.create({
                     content: req.body.comment,
-                    questionId: req.params.questionId
+                    questionId: req.params.questionId,
+                    userId: req.user.id
                 }
             )
         })
