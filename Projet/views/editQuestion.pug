@@ -1,0 +1,9 @@
+html
+    header
+        title Editer la question #{question.title}
+        h1 Editer la question #{question.title}
+    body
+        form(method="POST")
+            input(type="text", name="title", value=question.title)
+            textarea(type="text", name="content", rows=7, cols=50) #{question.content}
+            button(type="submit") Modifier

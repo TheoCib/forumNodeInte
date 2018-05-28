@@ -140,21 +140,60 @@ app.get('/detail/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question
         .findById(questionId,{include: [User, {model: Comment,include:[User]}]})
-        /*.findOne({include: [Comment, User], where:{
-            id: questionId
-            }})*/
         .then((question) => {
             res.render("detail", { question, user: req.user })
         })
 });
 
-app.get('/api/delete/:questionId', (req,res) => {
+//Envoie vers la page d'édition question
+app.get('/editQues/:questionId', (req,res) => {
+    const questionId = req.params.questionId;
+    Question
+        .findById(questionId)
+        .then((question) => {
+            res.render("editQuestion", {question, user: req.user})
+        })
+
+});
+
+//Delete questions (et comment lié)
+app.get('/api/deleteQues/:questionId', (req,res) => {
     const questionId = req.params.questionId
-   Question
-       .destroy({where:{id: questionId}})
+    Comment.destroy({where:{questionId: questionId}})
        .then(() => {
-           res.render("delete")
+           Question
+               .destroy({where:{id: questionId}})
        })
+       .then(() => {
+           res.render("deleteQuestion")
+       })
+});
+
+//Delete comment
+app.get('/api/deleteCom/:commentId/:questionId', (req,res) => {
+    const commentId = req.params.commentId;
+    const questionId = req.params.questionId;
+    Comment
+        .destroy({where:{id: commentId}})
+        .then(() => {
+            res.redirect("/detail/" + questionId)
+        })
+});
+
+app.post('/editQues/:questionId', (req,res) => {
+    const questionId = req.params.questionId;
+    Question
+        .findById(questionId)
+        .then((question) => {
+            question
+                .updateAttributes({
+                    title: req.body.title,
+                    content: req.body.content
+                })
+        })
+        .then(() => {
+            res.redirect("/detail/" + questionId)
+        })
 });
 
 //Inscription, mise en BDD d'un user

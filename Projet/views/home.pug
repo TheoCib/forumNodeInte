@@ -8,8 +8,9 @@ html
                 a(href="/detail/" + question.id) #{question.title}
                 p #{question.user.firstname}
 
-        a(href="/login") Se connecter
-        a(href="/signup") S'inscrire
+        a(href="/login") Connexion
+        a(href="/signup") Inscription
+        a(href="/api/logout") Deconnexion
         if user
             a(href="/addquestion") Poser une question
         else

@@ -5,13 +5,18 @@ html
         p De #{question.user.firstname}
     body
         p #{question.content}
-        a(href="/api/delete/" + question.id) X
         if user
+            if user.role == "admin" || user.id == question.user.id
+               a(href="/api/deleteQues/" + question.id) X
+               a(href="/editQues/" + question.id) Editer Question
+
             p Commentaires :
                 for comment in question.comments
                     article
                         p De #{comment.user.firstname}
                         p #{comment.content}
+                        if user.role == "admin" || user.id == comment.user.id
+                            a(href="/api/deleteCom/" + comment.id +"/"+ question.id) X
 
                 form(method="POST")
                     textarea(name="comment", placeholder="Commentaire", rows=7, cols=50)
