@@ -156,9 +156,18 @@ app.get('/editQues/:questionId', (req,res) => {
 
 });
 
+app.get('/editCom/:commentId', (req,res) => {
+    const commentId = req.params.commentId;
+    Comment
+        .findById(commentId, {include: [Question]})
+        .then((comment) => {
+            res.render("editComment", {comment})
+        })
+});
+
 //Delete questions (et comment lié)
 app.get('/api/deleteQues/:questionId', (req,res) => {
-    const questionId = req.params.questionId
+    const questionId = req.params.questionId;
     Comment.destroy({where:{questionId: questionId}})
        .then(() => {
            Question
@@ -180,6 +189,7 @@ app.get('/api/deleteCom/:commentId/:questionId', (req,res) => {
         })
 });
 
+//Modifier la question dans la bdd
 app.post('/editQues/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question
@@ -195,6 +205,24 @@ app.post('/editQues/:questionId', (req,res) => {
             res.redirect("/detail/" + questionId)
         })
 });
+
+//Modifier commentaire
+app.post('/editCOm/:commentId', (req,res) =>{
+    const  commentId = req.params.commentId;
+    Comment
+        .findById(commentId)
+        .then((comment) => {
+            comment
+                .updateAttributes({
+                    content: req.body.content
+                })
+                .then(() =>{
+                    res.redirect("/detail/" + comment.questionId)
+                })
+        })
+
+})
+
 
 //Inscription, mise en BDD d'un user
 app.post('/signup', (req,res) => {

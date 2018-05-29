@@ -1,0 +1,8 @@
+html
+    header
+        title Editer commentaire
+        h1 Editer commentaire
+    body
+        form(method="POST")
+            textarea(type="text", name="content", rows=7, cols=50) #{comment.content}
+            button(type="submit") Modifier

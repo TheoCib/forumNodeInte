@@ -17,6 +17,8 @@ html
                         p #{comment.content}
                         if user.role == "admin" || user.id == comment.user.id
                             a(href="/api/deleteCom/" + comment.id +"/"+ question.id) X
+                            a(href="/editCom/" + comment.id ) Editer Commentaire
+
 
                 form(method="POST")
                     textarea(name="comment", placeholder="Commentaire", rows=7, cols=50)
