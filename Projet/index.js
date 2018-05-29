@@ -159,7 +159,7 @@ app.get('/editQues/:questionId', (req,res) => {
 app.get('/editCom/:commentId', (req,res) => {
     const commentId = req.params.commentId;
     Comment
-        .findById(commentId, {include: [Question]})
+        .findById(commentId)
         .then((comment) => {
             res.render("editComment", {comment})
         })
