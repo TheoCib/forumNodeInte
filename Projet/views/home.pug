@@ -1,16 +1,27 @@
 html
     header
-        title Home
-        h1 Bienvenue
-    body
-        for question in questions
-            article
-                a(href="/detail/" + question.id) #{question.title}
-                p #{question.user.firstname}
+        title Questions list
+        link(rel="stylesheet", href="/css/style.css")
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        div
+            if user
+                a(href="/api/logout") Deconnexion
+            else
+                a(href="/login") Connexion
+                a(href="/signup") Inscription
 
-        a(href="/login") Connexion
-        a(href="/signup") Inscription
-        a(href="/api/logout") Deconnexion
+    body
+        header
+
+        div.question.questionmenu
+            ul
+                for question in questions
+                    li
+                        a.question(href="/detail/" + question.id) #{question.title}
+                        p #{question.user.firstname}
+                        p #{question.createdAt}
+
+
         if user
             a(href="/addquestion") Poser une question
         else

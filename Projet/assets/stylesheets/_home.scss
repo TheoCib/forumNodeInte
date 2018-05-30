@@ -1,0 +1,25 @@
+.question{
+  padding:5px;
+}
+
+.question ul{
+  background-color: white;
+  margin-top: 50px;
+}
+.question li{
+  list-style: none;
+}
+
+.questionmenu{
+  padding: 50px 400px;
+}
+
+.question ul {
+  li:last-child {
+    border-bottom: none;
+  }
+  li {
+    border-bottom: 1px solid #222;
+    transform: translateX(-20px);
+  }
+}

@@ -1,10 +1,33 @@
 html
     header
         title Login
-        h1 Se connecter
         link(rel="stylesheet", href="/css/style.css")
-    body
-        form(method="POST")
-            input(type="text", name="username", placeholder="Email")
-            input(type="pasword", name="password", placeholder="Mot de passe")
-            button(type="submit") Connexion
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+    body.container
+        div.welcomeback
+            img(src="images/send.png")
+            h1 Welcome back, please login
+        div.login
+            form(method="POST")
+                div
+                    p Sign in with your email adress
+                    input(type="text", name="username", placeholder="Email")
+                div
+                    p Password
+                    input(type="pasword", name="password", placeholder="Mot de passe")
+                div
+                    button(type="submit") Connexion
+
+            div.social
+                div
+                    img(src="images/01_twitter.png")
+                div
+                    img(src="images/02_facebook.png")
+                div
+                    img(src="images/13_pinterest.png")
+                div
+                    img(src="images/04_dribbble.png")
+        div
+        a(href="/signup") Don't have an account yet? Get Started
+        br
+        a(href="/") Menu

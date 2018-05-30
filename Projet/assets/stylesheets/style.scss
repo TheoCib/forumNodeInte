@@ -1,8 +1,17 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import "home";
+@import "login";
+
+body{
+  margin: 0;
+  background-color: #DBDBDB;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-a {
-  color: #00B7FF;
+header{
+  background-color: white;
+  padding: 15px;
 }
+
+
+
+
