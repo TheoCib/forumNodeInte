@@ -26,6 +26,7 @@ html
                         a.question(href="/detail/" + question.id) #{question.title}
                         p - Par #{question.user.firstname}
                         p - Le #{question.createdAt}
-                        p #{question.resolved}
+                        div.resolved
+                            p #{question.resolved}
 
 

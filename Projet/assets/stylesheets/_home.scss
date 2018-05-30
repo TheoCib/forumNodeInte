@@ -1,3 +1,4 @@
+
 .questionmenu{
   display: block;
   padding: 50px 400px;
@@ -35,6 +36,20 @@
     font-size: 20px;
     padding-top: 10px;
     padding-bottom: 20px;
+  }
+
+  .resolved{
+    p{
+      display: block;
+      text-align: center;
+      color: white;
+      font-size: 15px;
+      border: green 2px solid;
+      border-radius: 10px;
+      background-color: green;
+      padding: 7px;
+      margin-left: 80%;
+    }
   }
 
 }

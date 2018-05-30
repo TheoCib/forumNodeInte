@@ -2,6 +2,8 @@
 @import "login";
 @import "signup";
 @import "addquestion";
+@import "detail";
+
 
 body{
   margin: 0;
@@ -43,6 +45,15 @@ textarea{
   padding: 10px;
 }
 
+button{
+  width: 100%;
+  padding: 10px;
+  background-color: #25b10e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+
+}
 
 
 

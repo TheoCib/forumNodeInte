@@ -94,8 +94,8 @@ const User = db.define('user', {
 
 const Question = db.define('question', {
     title: {type : Sequelize.STRING},
-    content: {type : Sequelize.STRING},
-    resolved:{type: Sequelize.ENUM("resolved", "unresolved")}
+    content: {type : Sequelize.TEXT},
+    resolved:{type: Sequelize.ENUM("Resolved", "Unresolved")}
 });
 
 const Comment = db.define('comment', {
@@ -199,6 +199,7 @@ app.get('/api/deleteCom/:commentId/:questionId', (req,res) => {
         })
 });
 
+//résoudre un sujet
 app.get('/api/resolved/:questionId', (req,res) => {
     const questionId = req.params.questionId;
 
@@ -207,13 +208,30 @@ app.get('/api/resolved/:questionId', (req,res) => {
         .then((question) => {
             question
                 .updateAttributes({
-                    resolved: "resolved"
+                    resolved: "Resolved"
                 })
         })
         .then(() => {
             res.redirect("/detail/" + questionId)
         })
 
+});
+//Changer role d'un user
+app.get("/users/:userId", (req,res) => {
+    const userId = req.params.userId;
+    const selectedRole = req.query.selectedRole;
+    User
+        .findById(userId)
+        .then((user) => {
+            console.log(selectedRole);
+            user
+                .updateAttributes({
+                    role: selectedRole
+                })
+        })
+        .then(() => {
+            res.redirect("/users")
+        })
 });
 
 //POST------------------------------------------------------------------
@@ -292,7 +310,7 @@ app.post('/addquestion', (req,res) => {
                title: req.body.title,
                content: req.body.content,
                userId: req.user.id,
-               resolved: "unresolved"
+               resolved: "Unresolved"
            })
        })
        .then(() => {
@@ -314,21 +332,5 @@ app.post('/detail/:questionId', (req,res) =>{
         .then(() => res.redirect('/detail/' + req.params.questionId))
 });
 
-app.get("/users/:userId", (req,res) => {
-    const userId = req.params.userId;
-    const selectedRole = req.query.selectedRole;
-    User
-        .findById(userId)
-        .then((user) => {
-            console.log(selectedRole);
-            user
-                .updateAttributes({
-                    role: selectedRole
-                })
-        })
-        .then(() => {
-            res.redirect("/users")
-        })
-});
 
 app.listen(3000);
