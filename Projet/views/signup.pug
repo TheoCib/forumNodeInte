@@ -1,12 +1,31 @@
 html
-    header
+    head
         title S'inscrire
-        h1 Inscription
+        link(rel="stylesheet", href="/css/style.css")
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
 
-    body
-        form(method="POST")
-            input(type="text", name="firstname", placeholder="Prénom")
-            input(type="text", name="lastname", placeholder="Nom")
-            input(type="text", name="email", placeholder="aze.ty@mail.com")
-            input(type="password", name="password", placeholder="Mot de passe")
-            button(type="submit") S'inscrire
+
+    body.container
+        div.welcomeback
+            img(src="images/send.png")
+            h1 Please, Subscribe !
+        div.login
+            form(method="POST")
+                input(type="text", name="firstname", placeholder="Prénom")
+                input(type="text", name="lastname", placeholder="Nom")
+                input(type="text", name="email", placeholder="aze.ty@mail.com")
+                input(type="password", name="password", placeholder="Mot de passe")
+                button(type="submit") S'inscrire
+            div.social
+                div
+                    img(src="images/01_twitter.png")
+                div
+                    img(src="images/02_facebook.png")
+                div
+                    img(src="images/13_pinterest.png")
+                div
+                    img(src="images/04_dribbble.png")
+        div
+            a(href="/login") Already subscribed? Connect here
+            br
+            a(href="/") Menu

@@ -5,19 +5,23 @@ html
         p De #{question.user.firstname}
     body
         p #{question.content}
+        p #{question.resolved}
         if user
             if user.role == "admin" || user.id == question.user.id
                a(href="/api/deleteQues/" + question.id) X
                a(href="/editQues/" + question.id) Editer Question
+               a(href="/api/resolved/" + question.id) Résoudre
 
             p Commentaires :
                 for comment in question.comments
                     article
                         p De #{comment.user.firstname}
                         p #{comment.content}
+                        p #{question.resolved}
                         if user.role == "admin" || user.id == comment.user.id
                             a(href="/api/deleteCom/" + comment.id +"/"+ question.id) X
                             a(href="/editCom/" + comment.id ) Editer Commentaire
+
 
 
                 form(method="POST")

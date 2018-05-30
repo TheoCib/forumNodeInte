@@ -89,11 +89,13 @@ const User = db.define('user', {
     email: { type: Sequelize.STRING },
     password: { type: Sequelize.STRING },
     role: {type: Sequelize.ENUM("admin","user")}
+
 });
 
 const Question = db.define('question', {
     title: {type : Sequelize.STRING},
-    content: {type : Sequelize.STRING}
+    content: {type : Sequelize.STRING},
+    resolved:{type: Sequelize.ENUM("resolved", "unresolved")}
 });
 
 const Comment = db.define('comment', {
@@ -116,7 +118,7 @@ Question.hasMany(Comment);
 Comment.belongsTo(Question);
 sync();
 
-
+//ROUTES---------------------------------------------------------
 app.get('/', (req,res) => {
     Question
         .findAll({include: [User]})
@@ -143,6 +145,14 @@ app.get('/detail/:questionId', (req,res) => {
         .then((question) => {
             res.render("detail", { question, user: req.user })
         })
+});
+
+app.get('/users', (req,res) =>{
+    User
+        .findAll()
+        .then((users) => res.render("users", {users})
+
+    )
 });
 
 //Envoie vers la page d'édition question
@@ -189,6 +199,24 @@ app.get('/api/deleteCom/:commentId/:questionId', (req,res) => {
         })
 });
 
+app.get('/api/resolved/:questionId', (req,res) => {
+    const questionId = req.params.questionId;
+
+    Question
+        .findById(questionId)
+        .then((question) => {
+            question
+                .updateAttributes({
+                    resolved: "resolved"
+                })
+        })
+        .then(() => {
+            res.redirect("/detail/" + questionId)
+        })
+
+});
+
+//POST------------------------------------------------------------------
 //Modifier la question dans la bdd
 app.post('/editQues/:questionId', (req,res) => {
     const questionId = req.params.questionId;
@@ -255,7 +283,7 @@ app.post('/signup', (req,res) => {
             res.redirect('/')
         })
 });
-
+//poster un question
 app.post('/addquestion', (req,res) => {
    Question
        .sync()
@@ -263,7 +291,8 @@ app.post('/addquestion', (req,res) => {
            Question.create({
                title: req.body.title,
                content: req.body.content,
-               userId: req.user.id
+               userId: req.user.id,
+               resolved: "unresolved"
            })
        })
        .then(() => {
@@ -284,4 +313,22 @@ app.post('/detail/:questionId', (req,res) =>{
         })
         .then(() => res.redirect('/detail/' + req.params.questionId))
 });
+
+app.get("/users/:userId", (req,res) => {
+    const userId = req.params.userId;
+    const selectedRole = req.query.selectedRole;
+    User
+        .findById(userId)
+        .then((user) => {
+            console.log(selectedRole);
+            user
+                .updateAttributes({
+                    role: selectedRole
+                })
+        })
+        .then(() => {
+            res.redirect("/users")
+        })
+});
+
 app.listen(3000);

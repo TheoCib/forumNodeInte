@@ -1,15 +1,46 @@
 @import "home";
 @import "login";
+@import "signup";
+@import "addquestion";
 
 body{
   margin: 0;
-  background-color: #DBDBDB;
+  background-color: #eff3f6;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
 header{
   background-color: white;
-  padding: 15px;
+  padding: 5px;
+  text-align: right;
+ a{
+    margin: 5px;
+   padding-right: 10px;
+   font-size: 18px;
+  }
+  h1{
+    text-align: center;
+  }
+  .title{
+    color: black;
+    font-size: 30px;
+  }
+}
+
+input{
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: $gris;
+  border: none;
+  padding: 10px;
+}
+
+textarea{
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: $gris;
+  border: none;
+  padding: 10px;
 }
 
 

@@ -1,0 +1,15 @@
+html
+    header
+        h1 Gestion users
+    body
+        for user in users
+            form(methode="GET" action="/users/" + user.id)
+                p #{user.firstname}
+                p #{user.lastname}
+                p #{user.email}
+                p #{user.role}
+                select(name="selectedRole")
+                    option(value="") Select Role
+                    option(value="admin") Admin
+                    option(value="user") User
+                button(type="submit") Modifier user

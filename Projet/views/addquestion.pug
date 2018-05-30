@@ -1,9 +1,20 @@
 html
     header
         title Poser une question
-        h1 Poser une question
+        h1
+            a.title(href="/") StackOverflow version cheap
+        link(rel="stylesheet", href="/css/style.css")
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        //a(href="") #{user.firstname}
+        a(href="/api/logout") Deconnexion
     body
-        form(method="POST")
-            input(type="text", name="title", placeholder="Titre")
-            textarea(type="text", name="content", placeholder="Poser votre question", rows=7, cols=50)
-            button(type="submit") Envoyer
+        div.questionform
+            form(method="POST")
+                div
+                    p Titre de la question
+                    input(type="text", name="title", placeholder="Titre")
+                div
+                    p Description de la question
+                    textarea(type="text", name="content", placeholder="Poser votre question", rows=7, cols=50)
+                div
+                    button(type="submit") Envoyer

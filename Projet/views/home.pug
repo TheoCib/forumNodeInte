@@ -3,26 +3,29 @@ html
         title Questions list
         link(rel="stylesheet", href="/css/style.css")
         link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
-        div
-            if user
-                a(href="/api/logout") Deconnexion
-            else
-                a(href="/login") Connexion
-                a(href="/signup") Inscription
+        h1
+            a.title(href="/") StackOverflow version cheap
+        if user
+            a(href="") #{user.firstname}
+            a(href="/api/logout") Deconnexion
+            if user.role == "admin"
+                a(href="/users") Gestion user
+        else
+           a(href="/login") Connexion
+           a(href="/signup") Inscription
 
     body
-        header
-
-        div.question.questionmenu
+        div.questionmenu
+            if user
+                a.addquestion(href="/addquestion") Poser une question
+            else
+                a.addquestion(href="/login") Veuillez vous connecter pour poster une question.
             ul
                 for question in questions
                     li
                         a.question(href="/detail/" + question.id) #{question.title}
-                        p #{question.user.firstname}
-                        p #{question.createdAt}
+                        p - Par #{question.user.firstname}
+                        p - Le #{question.createdAt}
+                        p #{question.resolved}
 
 
-        if user
-            a(href="/addquestion") Poser une question
-        else
-            p Veuillez vous connecter pour poster une question.

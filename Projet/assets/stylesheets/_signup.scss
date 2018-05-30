@@ -6,10 +6,6 @@ a{
   font-size: 15px;
 }
 
-a:hover{
-  color: green;
-}
-
 body.container{
   padding: 50px 550px;
   background-color: #eff3f6;
@@ -20,7 +16,16 @@ body.container{
   flex-direction: column;
   background-color: white;
   border: 0.5px solid lightgray;
-  border-top: none;
+  border-top : none;
+
+}
+
+.login input{
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: $gris;
+  border: none;
+  padding: 10px;
 }
 
 .login p{
@@ -37,13 +42,11 @@ body.container{
   color: white;
   border: none;
   border-radius: 5px;
-
 }
 
 .welcomeback{
   background-color: $gris;
   text-align: center;
-  width: 100%;
   padding-top: 30px;
   padding-bottom: 10px;
   font-size: 14px;
