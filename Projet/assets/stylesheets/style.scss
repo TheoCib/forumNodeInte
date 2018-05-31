@@ -2,6 +2,7 @@
 @import "login";
 @import "addquestion";
 @import "detail";
+@import "profil";
 
 
 body{
@@ -11,7 +12,7 @@ body{
 }
 
 header{
-  background-color: #166dad;
+  background-color: #2097ef;
   padding: 5px;
   text-align: right;
  a{
@@ -26,11 +27,11 @@ header{
   h1{
     text-align: center;
     :hover{
-      color: black;
+      color: white;
     }
   }
   .title{
-    color: black;
+    color: white;
     font-size: 30px;
   }
 }

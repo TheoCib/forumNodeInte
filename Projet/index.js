@@ -143,6 +143,10 @@ app.get('/addquestion', (req,res) => {
     res.render("addquestion", {user: req.user})
 });
 
+app.get('/profil', (req,res) => {
+    res.render("profil", {user: req.user})
+});
+
 app.get('/detail/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question

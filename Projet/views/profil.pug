@@ -1,0 +1,28 @@
+html
+        header
+            title Profil #{user.firstname}
+            h1
+                a.title(href="/") StackOverflow version cheap
+            link(rel="stylesheet", href="/css/style.css")
+            link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+            a(href="") #{user.firstname}
+            a(href="/api/logout") Deconnexion
+        body
+            div.profil
+                h1 My Profile
+                div.imagename
+                    div
+                        img(src="images/bellemeuf.png")
+                    div
+                        p Your name
+                        input(type="text", name="firstname", value=user.firstname +" "+ user.lastname)
+                p E-mail Adress
+                div.mail
+                    input(type="text", name="email", value=user.email)
+                    button Change
+
+                p Password
+                div.mail
+                    input(type="password", name="password", value=user.password)
+                    button Change
+

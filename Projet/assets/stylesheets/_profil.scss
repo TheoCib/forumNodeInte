@@ -1,0 +1,48 @@
+.profil{
+  padding-left: 2%;
+  padding-bottom: 2%;
+  background: white;
+  display: block;
+  width: 35%;
+  margin-left: 45%;
+  margin-top: 3%;
+  //opacity: 0.5;
+  border: 0.5px solid lightgray;
+  border-radius: 5px;
+
+  p{
+    padding-top: 2%;
+    color: #7f8fa4;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .imagename{
+    display: flex;
+    flex-direction: row;
+    img{
+      overflow:hidden;
+      -webkit-border-radius:50px;
+      -moz-border-radius:50px;
+      border-radius:50px;
+      width:90px;
+      height:90px;
+    }
+    div:last-child{
+      padding-left: 5%;
+    }
+  }
+
+  .mail{
+    display: flex;
+    flex-direction: row;
+    input{
+      width: 70%;
+    }
+    button{
+      margin-left: 5%;
+      width: 20%;
+      padding: 0;
+    }
+  }
+}

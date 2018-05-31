@@ -6,7 +6,8 @@ html
         h1
             a.title(href="/") StackOverflow version cheap
         if user
-            a(href="") #{user.firstname}
+            a(href="/profil") #{user.firstname}
+            a(href="/profil") Mon profil
             a(href="/api/logout") Deconnexion
             if user.role == "admin"
                 a(href="/users") Gestion user
