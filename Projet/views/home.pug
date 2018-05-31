@@ -20,13 +20,37 @@ html
                 a.addquestion(href="/addquestion") Poser une question
             else
                 a.addquestion(href="/login") Veuillez vous connecter pour poster une question.
+
+            div.lastquestions
+                div.firstcard
+                    img(src="images/ville1.png")
+                    p Premiere question
+                div.secondcard
+                    img(src="images/ville2.png")
+                    p Deuxième question
+
+            div.listtitle
+                p All questions
+            div.listtop
+                div
+                   p Titre
+                div
+                   p Date
+                div
+                   p Status
             ul
                 for question in questions
                     li
-                        a.question(href="/detail/" + question.id) #{question.title}
-                        p - Par #{question.user.firstname}
-                        p - Le #{question.createdAt}
-                        div.resolved
-                            p #{question.resolved}
+                        div
+                            a.question(href="/detail/" + question.id) #{question.title}
+                            p.name @ #{question.user.firstname}
+                        div
+                            p.date #{question.jolieDate}
+                        if question.resolved == "Resolved"
+                            div.resolved
+                                p #{question.resolved}
+                        else
+                             div.unresolved
+                                 p #{question.resolved}
 
 

@@ -14,32 +14,47 @@ html
         link(rel="stylesheet", href="/css/style.css")
         link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
     body
-        div
-            p.resolvedPost #{question.resolved}
-            p.content #{question.content}
+        div.content
+            p.title #{question.title}
+            div.namedate
+                div
+                    p @ #{question.user.firstname}
+                div
+                    p #{question.createdAt}
+            p #{question.content}
+            div.postmanager
+            if question.resolved == "Resolved"
+                p.resolvedPost #{question.resolved}
+            else
+                p.unresolvedPost #{question.resolved}
             if user
                 if user.role == "admin" || user.id == question.user.id
-                   a(href="/api/deleteQues/" + question.id) X
-                   a(href="/editQues/" + question.id) Editer Question
-                   a(href="/api/resolved/" + question.id) Résoudre
+                        div
+                            a(href="/api/deleteQues/" + question.id) Supprimer la question
+                        div
+                            a(href="/editQues/" + question.id) Editer la question
+                        div
+                            a(href="/api/resolved/" + question.id) Résoudre la question
 
-                p Commentaires :
-                    for comment in question.comments
-                        article
-                            p De #{comment.user.firstname}
-                            p #{comment.content}
+            p.rep Réponses
 
-                            if user.role == "admin" || user.id == comment.user.id
-                                a(href="/api/deleteCom/" + comment.id +"/"+ question.id) X
-                                a(href="/editCom/" + comment.id ) Editer Commentaire
+        if user
+            div.comment
+                for comment in question.comments
+                    article
+                        p.commentuser @ #{comment.user.firstname}
+                        p #{comment.content}
 
+                        if user.role == "admin" || user.id == comment.user.id
+                            div.commentmanager
+                                div
+                                    a(href="/api/deleteCom/" + comment.id + "/" + question.id) Supprimer
+                                div
+                                    a(href="/editCom/" + comment.id ) Editer
 
-
-                    form(method="POST")
-                        textarea(name="comment", placeholder="Commentaire", rows=7, cols=50)
-                        br
-                        button(type="submit") Commenter
-            else
-                p Veuilliez vous connecter pour poster et lire les commentaires
-
-            a(href="/") Retour Menu
+                form(method="POST")
+                    textarea(name="comment", placeholder="Commentaire", rows=7, cols=50)
+                    br
+                    button(type="submit") Commenter
+        else
+            a.addquestion(href="/login") Veuilliez vous connecter pour poster et lire les commentaires.

@@ -122,7 +122,12 @@ sync();
 app.get('/', (req,res) => {
     Question
         .findAll({include: [User]})
-        .then(questions => res.render("home", {questions, user: req.user}))
+        .then((questions) =>{
+            for(let y=0; y < questions.length; y++){
+                let date = new Date(questions[y].createdAt);
+                questions[y]["jolieDate"] = date.getDay() + "/" + parseInt(date.getMonth()+ 1)  + "/" + date.getFullYear();
+            }
+            res.render("home", {questions, user: req.user})})
 
 });
 
@@ -171,7 +176,7 @@ app.get('/editCom/:commentId', (req,res) => {
     Comment
         .findById(commentId)
         .then((comment) => {
-            res.render("editComment", {comment})
+            res.render("editComment", {comment, user: req.user})
         })
 });
 

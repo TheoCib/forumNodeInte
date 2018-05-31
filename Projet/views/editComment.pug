@@ -1,8 +1,27 @@
 html
-    header
-        title Editer commentaire
-        h1 Editer commentaire
-    body
-        form(method="POST")
-            textarea(type="text", name="content", rows=7, cols=50) #{comment.content}
-            button(type="submit") Modifier
+    if user
+        if user.role == "admin" || user.id == comment.user.id
+            header
+                title Editer commentaire
+                h1
+                    a.title(href="/") StackOverflow version cheap
+                link(rel="stylesheet", href="/css/style.css")
+                link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+                a(href="") #{user.firstname}
+                a(href="/api/logout") Deconnexion
+            body
+                h2 Editer le commentaire
+                div.questionform
+                    form(method="POST")
+                        div
+                            textarea(type="text", name="content", rows=7, cols=50) #{comment.content}
+                        div
+                            button(type="submit") Modifier
+
+    else
+        header
+            title Editer commentaire
+            h1
+                a.title(href="/") Revenir au menu
+            link(rel="stylesheet", href="/css/style.css")
+            link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")

@@ -1,6 +1,5 @@
 @import "home";
 @import "login";
-@import "signup";
 @import "addquestion";
 @import "detail";
 
@@ -12,16 +11,23 @@ body{
 }
 
 header{
-  background-color: white;
+  background-color: #166dad;
   padding: 5px;
   text-align: right;
  a{
-    margin: 5px;
+   margin: 5px;
    padding-right: 10px;
    font-size: 18px;
+   color: white;
+  }
+  :hover{
+    color: lightgray;
   }
   h1{
     text-align: center;
+    :hover{
+      color: black;
+    }
   }
   .title{
     color: black;
@@ -55,5 +61,50 @@ button{
 
 }
 
+button:hover{
+  width: 100%;
+  padding: 10px;
+  background-color: #1e970b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
 
 
+button:active{
+  width: 100%;
+  padding: 10px;
+  background-color: #19760a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+.addquestion {
+  color: white;
+  font-size: 20px;
+  border: #25b10e 2px solid;
+  border-radius: 10px;
+  background-color: #25b10e;
+  padding: 5px;
+
+}
+
+.addquestion:hover {
+  color: white;
+  font-size: 20px;
+  border: #1e970b 2px solid;
+  border-radius: 10px;
+  background-color: #1e970b;
+  padding: 5px;
+}
+
+.addquestion:active {
+  color: white;
+  font-size: 20px;
+  border: #19760a 2px solid;
+  border-radius: 10px;
+  background-color: #19760a;
+  padding: 5px;
+}
