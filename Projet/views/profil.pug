@@ -1,4 +1,5 @@
 html
+    if user
         header
             title Profil #{user.firstname}
             h1
@@ -8,21 +9,63 @@ html
             a(href="") #{user.firstname}
             a(href="/api/logout") Deconnexion
         body
-            div.profil
-                h1 My Profile
-                div.imagename
-                    div
-                        img(src="images/bellemeuf.png")
-                    div
-                        p Your name
-                        input(type="text", name="firstname", value=user.firstname +" "+ user.lastname)
-                p E-mail Adress
-                div.mail
-                    input(type="text", name="email", value=user.email)
-                    button Change
+            div.profilcontainer
+                div.profil
+                    h1 My Profile
+                    div.imagename
+                        div
+                            img(src="images/bellemeuf.png")
+                        div
+                            p Your name
+                            input(type="text", name="firstname", value=user.firstname +" "+ user.lastname)
+                    p E-mail Adress
+                    div.mail
+                        input(type="text", name="email", value=user.email)
+                        button Change
 
-                p Password
-                div.mail
-                    input(type="password", name="password", value=user.password)
-                    button Change
+                    p Password
+                    div.mail
+                        input(type="password", name="password", value=user.password)
+                        button Change
+                div.profildashbrd
+                    div.case
+                        div
+                            img(src="images/padlock.png")
+                        div
+                            p My profile
+                            p How your account looks like
+                    div.case
+                        div
+                            img(src="images/padlock.png")
+                        div
+                            p Notifications
+                            p Email notifications and all around this
+                    div.case
+                        div
+                            img(src="images/padlock.png")
+                        div
+                            p Download History
+                            p View your recent download
+                    div.case
+                        div
+                            img(src="images/padlock.png")
+                        div
+                            p Billing and Invoices
+                            p Everything about your money
+                    div.case
+                        div
+                            img(src="images/padlock.png")
+                        div
+                            p Support
+                            p Do you need help
+    else
+        header
+            title Profil
+            h1
+               a.title(href="/") StackOverflow version cheap
+            link(rel="stylesheet", href="/css/style.css")
+            link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        body
+            a.addquestion.connectpls(href="/login") Veuilliez vous connecter pour voir votre profil.
+
 

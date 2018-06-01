@@ -1,0 +1,64 @@
+.user{
+  background-color: white;
+  margin-left: 10%;
+  width: 80% ;
+  border: 0.5px solid lightgray;
+  border-radius: 5px;
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+  form{
+    padding-left: 2%;
+    padding-right: 2%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+
+    p{
+      margin: 0;
+    }
+
+    div{
+      width: 40%;
+    }
+
+    div:last-of-type{
+      padding-top: 1%;
+      margin-left: auto;
+      padding-bottom: 1%;
+    }
+    div p:first-of-type{
+      padding-top: 5%;
+      color: grey;
+      font-size: 80%;
+    }
+
+    .rolewitdh{
+      width: 10%;
+      padding-left: 5%;
+      p:first-of-type{
+        padding-top: 20%;
+      }
+
+    }
+
+    .select{
+      padding-top: 2%;
+      padding-left: 5%;
+    }
+  }
+
+  li{
+    list-style: none;
+    border-bottom: 1px black solid;
+  }
+
+  li:last-of-type{
+    border: none;
+  }
+
+
+}
+

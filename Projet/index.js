@@ -83,6 +83,7 @@ const db = new Sequelize('forum', 'root', '', {
     dialect: 'mysql'
 });
 
+//Table user
 const User = db.define('user', {
     firstname: { type: Sequelize.STRING },
     lastname: { type: Sequelize.STRING },
@@ -92,22 +93,30 @@ const User = db.define('user', {
 
 });
 
+//Table question
 const Question = db.define('question', {
     title: {type : Sequelize.STRING},
     content: {type : Sequelize.TEXT},
     resolved:{type: Sequelize.ENUM("Resolved", "Unresolved")}
 });
 
+//Table commentaires
 const Comment = db.define('comment', {
     content: {type: Sequelize.STRING}
 });
 
+//Fonction sync()
 function sync() {
     User.sync();
     Question.sync();
     Comment.sync();
 }
 
+/*hiérarchie tables
+User
+----Question
+------------Comment
+ */
 User.hasMany(Question);
 Question.belongsTo(User);
 
@@ -119,6 +128,7 @@ Comment.belongsTo(Question);
 sync();
 
 //ROUTES---------------------------------------------------------
+//Route home
 app.get('/', (req,res) => {
     Question
         .findAll({include: [User]})
@@ -131,22 +141,27 @@ app.get('/', (req,res) => {
 
 });
 
+//Page inscription
 app.get('/signup', (req,res) => {
     res.render("signup")
 });
 
+//Page login
 app.get('/login', (req,res) => {
     res.render("login")
 });
 
+//page créer une question
 app.get('/addquestion', (req,res) => {
     res.render("addquestion", {user: req.user})
 });
 
+//Page profil
 app.get('/profil', (req,res) => {
     res.render("profil", {user: req.user})
 });
 
+//Acceder à une question
 app.get('/detail/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question
@@ -156,6 +171,7 @@ app.get('/detail/:questionId', (req,res) => {
         })
 });
 
+//Page gestion des users (que pour admin)
 app.get('/users', (req,res) =>{
     User
         .findAll()
@@ -164,7 +180,7 @@ app.get('/users', (req,res) =>{
     )
 });
 
-//Envoie vers la page d'édition question
+//Page édition de question (seulement pour admin et proprio du post)
 app.get('/editQues/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question
@@ -175,7 +191,7 @@ app.get('/editQues/:questionId', (req,res) => {
 
 });
 
-//Editer commentaire
+//Page édition de commantaire (seulement pour admin et proprio du com)
 app.get('/editCom/:commentId', (req,res) => {
     const commentId = req.params.commentId;
     Comment
@@ -185,7 +201,7 @@ app.get('/editCom/:commentId', (req,res) => {
         })
 });
 
-//Delete questions (et comment lié)
+//Delete questions (et comment lié) (seulement pour admin et priprio de la question)
 app.get('/api/deleteQues/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Comment.destroy({where:{questionId: questionId}})
@@ -198,7 +214,7 @@ app.get('/api/deleteQues/:questionId', (req,res) => {
        })
 });
 
-//Delete comment
+//Delete comment (seulement pour admin et proprio du comment
 app.get('/api/deleteCom/:commentId/:questionId', (req,res) => {
     const commentId = req.params.commentId;
     const questionId = req.params.questionId;
@@ -209,7 +225,7 @@ app.get('/api/deleteCom/:commentId/:questionId', (req,res) => {
         })
 });
 
-//résoudre un sujet
+//Résoudre un sujet (seulement pour admin et propro de la question
 app.get('/api/resolved/:questionId', (req,res) => {
     const questionId = req.params.questionId;
 
@@ -226,6 +242,7 @@ app.get('/api/resolved/:questionId', (req,res) => {
         })
 
 });
+
 //Changer role d'un user
 app.get("/users/:userId", (req,res) => {
     const userId = req.params.userId;
@@ -245,7 +262,8 @@ app.get("/users/:userId", (req,res) => {
 });
 
 //POST------------------------------------------------------------------
-//Modifier la question dans la bdd
+
+//Modifier la question dans la bdd (sur page editQuestion)
 app.post('/editQues/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question
@@ -262,7 +280,7 @@ app.post('/editQues/:questionId', (req,res) => {
         })
 });
 
-//Modifier commentaire
+//Modifier commentaire (sur page editCommentaire)
 app.post('/editCOm/:commentId', (req,res) =>{
     const  commentId = req.params.commentId;
     Comment
@@ -311,7 +329,8 @@ app.post('/signup', (req,res) => {
             res.redirect('/')
         })
 });
-//poster un question
+
+//poster une question
 app.post('/addquestion', (req,res) => {
    Question
        .sync()
@@ -328,6 +347,7 @@ app.post('/addquestion', (req,res) => {
        })
 
 });
+//Poster un commentaire sur une question
 app.post('/detail/:questionId', (req,res) =>{
     Comment
         .sync()

@@ -3,6 +3,7 @@
 @import "addquestion";
 @import "detail";
 @import "profil";
+@import "users";
 
 
 body{
@@ -13,18 +14,22 @@ body{
 
 header{
   background-color: #2097ef;
-  padding: 5px;
+  padding-bottom: 1%;
   text-align: right;
  a{
    margin: 5px;
    padding-right: 10px;
    font-size: 18px;
    color: white;
+   padding: 1%;
   }
   :hover{
-    color: lightgray;
+    background-color: #146eb2;
+    border-radius: 10px;
+    color: white;
   }
   h1{
+    padding-top: 2%;
     text-align: center;
     :hover{
       color: white;

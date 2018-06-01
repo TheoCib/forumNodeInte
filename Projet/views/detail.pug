@@ -33,8 +33,9 @@ html
                             a(href="/api/deleteQues/" + question.id) Supprimer la question
                         div
                             a(href="/editQues/" + question.id) Editer la question
-                        div
-                            a(href="/api/resolved/" + question.id) Résoudre la question
+                        if question.resolved == "Unresolved"
+                            div
+                                a(href="/api/resolved/" + question.id) Résoudre la question
 
             p.rep Réponses
 
