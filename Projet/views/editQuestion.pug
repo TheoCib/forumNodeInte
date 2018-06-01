@@ -1,25 +1,36 @@
 html
     if user
-        header
-            title Editer la question #{question.title}
-            h1
-              a.title(href="/") StackOverflow version cheap
-            link(rel="stylesheet", href="/css/style.css")
-            link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
-            a(href="") #{user.firstname}
-            a(href="/api/logout") Deconnexion
-        body
-            h2 Editer la question #{question.title}
-            div.questionform
-                form(method="POST")
-                    div
-                        p Titre de la question
-                        input(type="text", name="title", value=question.title)
-                    div
-                        p Description de la question
-                        textarea(type="text", name="content", rows=7, cols=50) #{question.content}
-                    div
-                        button(type="submit") Modifier
+        if user.role == "admin" || user.id == question.user.id
+
+            header
+                title Editer la question #{question.title}
+                h1
+                  a.title(href="/") StackOverflow version cheap
+                link(rel="stylesheet", href="/css/style.css")
+                link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+                a(href="") #{user.firstname}
+                a(href="/api/logout") Deconnexion
+            body
+                h2 Editer la question #{question.title}
+                div.questionform
+                    form(method="POST")
+                        div
+                            p Titre de la question
+                            input(type="text", name="title", value=question.title)
+                        div
+                            p Description de la question
+                            textarea(type="text", name="content", rows=7, cols=50) #{question.content}
+                        div
+                            button(type="submit") Modifier
+        else
+            header
+                title Editer une question
+                h1
+                    a.title(href="/") Revenir au menu
+                link(rel="stylesheet", href="/css/style.css")
+                link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+            body
+                p Permission denied
     else
         header
             title Editer une question
@@ -27,3 +38,5 @@ html
                 a.title(href="/") Revenir au menu
             link(rel="stylesheet", href="/css/style.css")
             link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        body
+            p Permission denied

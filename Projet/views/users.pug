@@ -1,15 +1,39 @@
 html
-    header
-        h1 Gestion users
-    body
-        for user in users
-            form(methode="GET" action="/users/" + user.id)
-                p #{user.firstname}
-                p #{user.lastname}
-                p #{user.email}
-                p #{user.role}
-                select(name="selectedRole")
-                    option(value="") Select Role
-                    option(value="admin") Admin
-                    option(value="user") User
-                button(type="submit") Modifier user
+    if user
+        if user.role == "admin"
+            header
+                link(rel="stylesheet", href="/css/style.css")
+                link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+                h1
+                  a.title(href="/") StackOverflow version cheap
+            body
+                for user in users
+                    form(methode="GET" action="/users/" + user.id)
+                        p #{user.firstname}
+                        p #{user.lastname}
+                        p #{user.email}
+                        p #{user.role}
+                        select(name="selectedRole")
+                            option(value="") Select Role
+                            option(value="admin") Admin
+                            option(value="user") User
+                        button(type="submit") Modifier user
+
+        else
+            header
+                title Admin pannel
+                h1
+                    a.title(href="/") Revenir au menu
+                link(rel="stylesheet", href="/css/style.css")
+                link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+            body
+                p Permission denied
+    else
+        header
+            title Admin pannel
+            h1
+                a.title(href="/") Revenir au menu
+            link(rel="stylesheet", href="/css/style.css")
+            link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        body
+            p Permission denied

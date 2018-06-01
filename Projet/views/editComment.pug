@@ -17,6 +17,15 @@ html
                             textarea(type="text", name="content", rows=7, cols=50) #{comment.content}
                         div
                             button(type="submit") Modifier
+        else
+            header
+                title Editer un Commentaire
+                h1
+                    a.title(href="/") Revenir au menu
+                link(rel="stylesheet", href="/css/style.css")
+                link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+            body
+                p Permission denied
 
     else
         header
@@ -25,3 +34,5 @@ html
                 a.title(href="/") Revenir au menu
             link(rel="stylesheet", href="/css/style.css")
             link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        body
+            p Permission denied

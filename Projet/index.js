@@ -125,7 +125,7 @@ app.get('/', (req,res) => {
         .then((questions) =>{
             for(let y=0; y < questions.length; y++){
                 let date = new Date(questions[y].createdAt);
-                questions[y]["jolieDate"] = date.getDay() + "/" + parseInt(date.getMonth()+ 1)  + "/" + date.getFullYear();
+                questions[y]["jolieDate"] = date.getDate() + "/" + parseInt(date.getMonth()+ 1)  + "/" + date.getFullYear();
             }
             res.render("home", {questions, user: req.user})})
 
@@ -159,7 +159,7 @@ app.get('/detail/:questionId', (req,res) => {
 app.get('/users', (req,res) =>{
     User
         .findAll()
-        .then((users) => res.render("users", {users})
+        .then((users) => res.render("users", {users, user: req.user})
 
     )
 });
@@ -168,17 +168,18 @@ app.get('/users', (req,res) =>{
 app.get('/editQues/:questionId', (req,res) => {
     const questionId = req.params.questionId;
     Question
-        .findById(questionId)
+        .findById(questionId, {include: [User]})
         .then((question) => {
             res.render("editQuestion", {question, user: req.user})
         })
 
 });
 
+//Editer commentaire
 app.get('/editCom/:commentId', (req,res) => {
     const commentId = req.params.commentId;
     Comment
-        .findById(commentId)
+        .findById(commentId, {include: [User]})
         .then((comment) => {
             res.render("editComment", {comment, user: req.user})
         })
