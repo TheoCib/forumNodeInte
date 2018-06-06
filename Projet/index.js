@@ -362,5 +362,5 @@ app.post('/detail/:questionId', (req,res) =>{
         .then(() => res.redirect('/detail/' + req.params.questionId))
 });
 
-
+//Connection
 app.listen(3000);
