@@ -21,22 +21,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Strategie d'authentification via email + password-------------------
-passport.use(new LocalStrategy((email, password, done) =>{
-    User
-        .findOne({where:{
-                email
-            }})
-        .then(function (user) {
-            if (!user || user.password !== password){
-                return done(null, false, {
-                    message: 'Email inconnue ou mdp invalide'
-                });
-            }
-            return done(null,user)
-        })
-        .catch(done);
-}));
 
 //Strategie d'authentification via email + password-------------------
 passport.use(new LocalStrategy((email, password, done) =>{
